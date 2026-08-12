@@ -1,6 +1,9 @@
 import pygame
 
+import asteroidfield
 import constants
+from asteroidfield import AsteroidField
+from asteroid import Asteroid
 from logger import log_state
 from player import Player
 
@@ -12,10 +15,14 @@ def main():
     _ = pygame.init()
     updatable = pygame.sprite.Group()
     drawable  = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
 
     screen = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
     player = Player(constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2) #noqa
+    asteroid_field = AsteroidField() #noqa creating asteroid field object
 
     clock = pygame.time.Clock()
     dt = 0.0
